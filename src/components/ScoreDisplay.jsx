@@ -9,18 +9,18 @@ export default function ScoreDisplay({ score, target, round, deckLeft, lives, ha
         <span className="score-display__round">Ronda {round}</span>
         <span className="score-display__lives">
           {Array.from({ length: 3 }, (_, i) => (
-            <span key={i}>{i < lives ? '❤️' : '🖤'}</span>
+            <span key={i}>{i < lives ? '♥' : '♡'}</span>
           ))}
         </span>
       </div>
 
       <div className="score-display__scores">
-        <div className="score-display__current">
+        <div className="score-display__block">
           <span className="score-display__label">Puntaje</span>
-          <span className="score-display__value glow-gold">{score.toLocaleString()}</span>
+          <span className="score-display__value score-display__value--score">{score.toLocaleString()}</span>
         </div>
-        <div className="score-display__sep">vs</div>
-        <div className="score-display__target">
+        <div className="score-display__divider">vs</div>
+        <div className="score-display__block">
           <span className="score-display__label">Objetivo</span>
           <span className="score-display__value">{target.toLocaleString()}</span>
         </div>
@@ -29,7 +29,7 @@ export default function ScoreDisplay({ score, target, round, deckLeft, lives, ha
       <div className="score-display__bar-track">
         <div
           className="score-display__bar-fill"
-          style={{ width: `${pct}%`, background: pct >= 100 ? '#06d6a0' : '#f0c040' }}
+          style={{ width: `${pct}%`, background: pct >= 100 ? '#008000' : '#316AC5' }}
         />
       </div>
 
@@ -46,55 +46,58 @@ export default function ScoreDisplay({ score, target, round, deckLeft, lives, ha
 
       <style>{`
         .score-display {
-          background: rgba(26,18,32,0.95);
-          border: 1px solid rgba(240,192,64,0.2);
-          border-radius: 12px;
-          padding: 14px 16px;
-          display: flex; flex-direction: column; gap: 10px;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+          background: #ECE9D8;
+          border: 2px groove #ACA899;
+          padding: 8px 10px;
+          display: flex; flex-direction: column; gap: 7px;
+          box-shadow: 1px 1px 3px rgba(0,0,0,0.25);
+          font-family: 'Tahoma', Arial, sans-serif;
         }
         .score-display__header {
           display: flex; justify-content: space-between; align-items: center;
         }
         .score-display__round {
-          font-family: var(--font-heading);
-          font-size: 0.75rem; letter-spacing: 0.1em;
-          text-transform: uppercase; color: var(--accent-gold);
+          font-size: 11px; font-weight: bold; color: #000;
         }
-        .score-display__lives { font-size: 0.85rem; }
+        .score-display__lives {
+          font-size: 12px; color: #CC0000; letter-spacing: 2px;
+        }
         .score-display__scores {
-          display: flex; align-items: center; gap: 10px;
+          display: flex; align-items: center; gap: 6px;
         }
-        .score-display__current, .score-display__target {
+        .score-display__block {
           display: flex; flex-direction: column; align-items: center; flex: 1;
         }
         .score-display__label {
-          font-size: 0.65rem; text-transform: uppercase;
-          letter-spacing: 0.08em; color: var(--text-muted);
+          font-size: 9px; text-transform: uppercase;
+          letter-spacing: 0.05em; color: #666;
         }
         .score-display__value {
-          font-family: var(--font-heading);
-          font-size: 1.5rem; font-weight: 700;
+          font-size: 16px; font-weight: bold; color: #000;
         }
-        .score-display__sep { color: var(--text-dim); font-size: 0.75rem; }
+        .score-display__value--score { color: #003399; }
+        .score-display__divider { color: #888; font-size: 10px; }
         .score-display__bar-track {
-          height: 6px; background: rgba(255,255,255,0.08);
-          border-radius: 3px; overflow: hidden;
+          height: 8px;
+          background: #FFFFFF;
+          border: 1px inset #ACA899;
+          border-radius: 1px; overflow: hidden;
         }
         .score-display__bar-fill {
-          height: 100%; border-radius: 3px;
-          transition: width 0.4s ease;
+          height: 100%;
+          transition: width 0.35s ease;
         }
         .score-display__hand-name {
-          font-family: var(--font-heading); font-size: 0.75rem;
-          color: var(--accent-gold); text-align: center;
-          display: flex; flex-direction: column; align-items: center; gap: 2px;
+          font-size: 11px; font-weight: bold;
+          color: #000; text-align: center;
+          display: flex; flex-direction: column; align-items: center; gap: 1px;
+          border-top: 1px solid #ACA899; padding-top: 5px;
         }
         .score-display__hand-chips {
-          font-size: 0.7rem; color: var(--text-muted);
+          font-size: 9px; color: #555; font-weight: normal;
         }
         .score-display__deck {
-          font-size: 0.75rem; color: var(--text-muted); text-align: center;
+          font-size: 10px; color: #555; text-align: center;
         }
       `}</style>
     </div>

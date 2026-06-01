@@ -11,6 +11,7 @@ import { evaluateHand } from '../utils/handEvaluator.js'
 import { calculateBaseScore, applyJokers, getTargetScore } from '../utils/scoreCalculator.js'
 
 const HAND_SIZE = 8
+
 const MAX_SELECTED = 5
 
 function initGame() {
@@ -139,7 +140,7 @@ export default function GameBoard({ onMenu, highScore, onScoreUpdate }) {
     <div className="gameboard">
       <div className="gameboard__header">
         <button className="btn btn-secondary" onClick={onMenu}>← Menú</button>
-        <div className="gameboard__title glow-gold">BALATRO</div>
+        <div className="gameboard__title">BALATRO</div>
         <button className="btn btn-secondary" onClick={() => setState(initGame())}>🔄 Reiniciar</button>
       </div>
 
@@ -239,72 +240,93 @@ export default function GameBoard({ onMenu, highScore, onScoreUpdate }) {
         .gameboard {
           width: 100%; height: 100%;
           display: flex; flex-direction: column;
-          background: radial-gradient(ellipse at 30% 20%, #1a0f2a 0%, #0a0608 60%);
+          background:
+            repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px),
+            repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px),
+            #35682E;
         }
         .gameboard__header {
           display: flex; align-items: center; justify-content: space-between;
-          padding: 10px 20px;
-          border-bottom: 1px solid rgba(240,192,64,0.15);
-          background: rgba(0,0,0,0.3); flex-shrink: 0;
+          padding: 4px 10px;
+          background: linear-gradient(to bottom, #4080D8 0%, #2060C8 50%, #1A54BE 100%);
+          border-bottom: 1px solid #0D3A96;
+          flex-shrink: 0;
         }
         .gameboard__title {
-          font-family: var(--font-display); font-size: 1.4rem;
-          font-weight: 900; color: var(--accent-gold); letter-spacing: 0.15em;
+          font-family: 'Tahoma', Arial, sans-serif;
+          font-size: 0.85rem; font-weight: bold;
+          color: #FFFFFF;
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+          letter-spacing: 0.05em;
+        }
+        .gameboard__header .btn {
+          font-size: 10px; padding: 2px 10px; min-height: 20px;
+          background: linear-gradient(to bottom, #F0EDE2 0%, #D9D5C8 100%);
+          border: 2px outset #DDDBD0;
         }
         .gameboard__main {
-          flex: 1; display: flex; gap: 16px;
-          padding: 14px 16px; overflow: hidden; min-height: 0;
+          flex: 1; display: flex; gap: 10px;
+          padding: 10px 12px; overflow: hidden; min-height: 0;
         }
         .gameboard__left {
-          width: 220px; flex-shrink: 0;
-          display: flex; flex-direction: column; gap: 14px; overflow-y: auto;
+          width: 200px; flex-shrink: 0;
+          display: flex; flex-direction: column; gap: 8px; overflow-y: auto;
         }
         .gameboard__center {
           flex: 1; display: flex; flex-direction: column;
-          align-items: center; gap: 12px; overflow: hidden;
+          align-items: center; justify-content: center; gap: 10px; overflow: hidden;
         }
         .gameboard__message {
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(240,192,64,0.2);
-          border-radius: 8px; padding: 8px 16px;
-          font-size: 0.85rem; color: var(--accent-gold);
-          font-family: var(--font-heading); animation: fadeIn 0.2s ease;
+          background: #FFFBE6;
+          border: 1px solid #CCA800;
+          border-radius: 2px; padding: 4px 12px;
+          font-size: 11px; color: #664400;
+          font-family: 'Tahoma', Arial, sans-serif;
+          animation: fadeIn 0.15s ease;
+          box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         .gameboard__hand-preview {
-          display: flex; align-items: center; gap: 12px;
-          background: rgba(240,192,64,0.08);
-          border: 1px solid rgba(240,192,64,0.3);
-          border-radius: 8px; padding: 6px 16px;
+          display: flex; align-items: center; gap: 10px;
+          background: #ECE9D8;
+          border: 1px solid #ACA899;
+          border-radius: 2px; padding: 4px 14px;
+          box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
         }
         .hand-preview__name {
-          font-family: var(--font-heading); font-size: 0.9rem; color: var(--accent-gold);
+          font-family: 'Tahoma', Arial, sans-serif;
+          font-size: 11px; font-weight: bold; color: #000;
         }
-        .hand-preview__score { font-size: 0.78rem; color: var(--text-muted); }
+        .hand-preview__score { font-size: 10px; color: #555; }
         .gameboard__cards {
           display: flex; flex-wrap: wrap; gap: 8px;
-          justify-content: center; align-content: flex-start;
-          flex: 1; padding: 20px 10px 30px; overflow: visible;
+          justify-content: center; align-content: center;
+          padding: 10px; overflow: visible;
         }
         .gameboard__actions {
-          display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; flex-shrink: 0;
+          display: flex; gap: 8px; flex-wrap: wrap;
+          justify-content: center; flex-shrink: 0;
         }
         .gameboard__hint {
-          font-size: 0.72rem; color: var(--text-dim); font-style: italic;
+          font-size: 10px; color: rgba(255,255,255,0.7);
+          font-style: italic;
+          text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
         }
         .gameboard__breakdown {
-          background: rgba(26,18,32,0.9);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 10px; padding: 10px 12px;
-          display: flex; flex-direction: column; gap: 4px; font-size: 0.75rem;
+          background: #ECE9D8;
+          border: 1px solid #ACA899;
+          border-radius: 2px; padding: 6px 10px;
+          display: flex; flex-direction: column; gap: 3px;
+          font-size: 10px;
+          box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         .breakdown__row {
-          display: flex; justify-content: space-between; gap: 8px; color: var(--text-muted);
+          display: flex; justify-content: space-between; gap: 8px; color: #333;
         }
-        .breakdown__row--joker { color: var(--accent-purple); font-size: 0.7rem; }
+        .breakdown__row--joker { color: #660099; font-size: 10px; }
         .breakdown__total {
-          border-top: 1px solid rgba(255,255,255,0.08);
-          padding-top: 4px; color: var(--text-primary);
-          font-family: var(--font-heading); font-weight: 700;
+          border-top: 1px solid #ACA899;
+          padding-top: 3px; color: #000;
+          font-family: 'Tahoma', Arial, sans-serif; font-weight: bold;
         }
       `}</style>
     </div>

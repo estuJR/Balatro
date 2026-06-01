@@ -9,7 +9,7 @@ export default function ActiveJokers({ jokerIds }) {
     .filter(Boolean)
 
   if (jokers.length === 0) return (
-    <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontStyle: 'italic', padding: '8px' }}>
+    <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.7)', fontStyle: 'italic', padding: '4px 2px', textShadow: '1px 1px 1px rgba(0,0,0,0.4)' }}>
       Sin jokers aún
     </div>
   )
@@ -22,7 +22,6 @@ export default function ActiveJokers({ jokerIds }) {
           <div
             key={joker.id}
             className="joker-chip"
-            style={{ '--joker-color': joker.color }}
             onMouseEnter={() => setTooltip(joker.id)}
             onMouseLeave={() => setTooltip(null)}
           >
@@ -38,39 +37,41 @@ export default function ActiveJokers({ jokerIds }) {
       </div>
 
       <style>{`
-        .active-jokers { display: flex; flex-direction: column; gap: 6px; }
+        .active-jokers { display: flex; flex-direction: column; gap: 4px; }
         .active-jokers__label {
-          font-size: 0.65rem; text-transform: uppercase;
-          letter-spacing: 0.08em; color: var(--text-muted);
+          font-size: 9px; text-transform: uppercase;
+          letter-spacing: 0.05em; color: rgba(255,255,255,0.75);
+          text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+          font-family: 'Tahoma', Arial, sans-serif;
         }
-        .active-jokers__list { display: flex; flex-wrap: wrap; gap: 6px; }
+        .active-jokers__list { display: flex; flex-wrap: wrap; gap: 4px; }
         .joker-chip {
-          width: 38px; height: 38px;
-          background: color-mix(in srgb, var(--joker-color) 20%, var(--bg-panel));
-          border: 1px solid var(--joker-color);
-          border-radius: 8px;
+          width: 34px; height: 34px;
+          background: linear-gradient(to bottom, #F0EDE2, #D9D5C8);
+          border: 2px outset #DDDBD0;
+          border-radius: 3px;
           display: flex; align-items: center; justify-content: center;
-          font-size: 1.2rem; cursor: pointer; position: relative;
-          transition: transform 0.15s;
-          box-shadow: 0 0 8px color-mix(in srgb, var(--joker-color) 40%, transparent);
+          font-size: 1.1rem; cursor: pointer; position: relative;
         }
-        .joker-chip:hover { transform: scale(1.15); }
+        .joker-chip:hover { background: linear-gradient(to bottom, #F7F4EC, #E4E0D4); }
+        .joker-chip:active { border-style: inset; }
         .joker-chip__tooltip {
-          position: absolute; bottom: calc(100% + 8px); left: 50%;
+          position: absolute; bottom: calc(100% + 6px); left: 50%;
           transform: translateX(-50%);
-          background: var(--bg-panel);
-          border: 1px solid var(--joker-color);
-          border-radius: 8px; padding: 8px 10px;
-          width: 160px; z-index: 100;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+          background: #FFFBE6;
+          border: 1px solid #ACA899;
+          border-radius: 2px; padding: 6px 8px;
+          width: 150px; z-index: 100;
+          box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
           pointer-events: none;
+          font-family: 'Tahoma', Arial, sans-serif;
         }
         .joker-chip__tooltip strong {
-          font-family: var(--font-heading); font-size: 0.75rem;
-          color: var(--accent-gold); display: block; margin-bottom: 4px;
+          font-size: 10px; color: #000;
+          display: block; margin-bottom: 3px;
         }
         .joker-chip__tooltip p {
-          font-size: 0.72rem; color: var(--text-primary); line-height: 1.4;
+          font-size: 9px; color: #333; line-height: 1.4;
         }
       `}</style>
     </div>
